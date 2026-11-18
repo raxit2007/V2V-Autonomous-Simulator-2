@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>V2V Lane Merge · Project Source</title>
+<style>
+:root{--bg:#101820;--panel:#182630;--line:#2d4351;--text:#eaf2f7;--muted:#9fb3c1;--blue:#76b7e5;--gold:#e8c56a;--green:#83c7a0}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:15px/1.55 Segoe UI,Arial,sans-serif}
+header{padding:25px 5vw;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;background:#14212a}
+.brand{font-size:21px;font-weight:750;letter-spacing:.4px}.brand span{color:var(--blue)}nav a{color:var(--muted);text-decoration:none;margin-left:20px}nav a:hover{color:white}
+main{max-width:1250px;margin:35px auto;padding:0 22px}.intro{padding:25px 28px;background:var(--panel);border:1px solid var(--line);border-radius:15px;margin-bottom:22px}.tag{color:var(--green);font-weight:700;letter-spacing:1.4px;font-size:12px}h1{margin:8px 0;font-size:clamp(26px,4vw,38px)}p{color:var(--muted);margin:8px 0}
+.grid{display:grid;grid-template-columns:230px 1fr;gap:18px}.side,.codebox{background:var(--panel);border:1px solid var(--line);border-radius:14px;overflow:hidden}.side{padding:13px;height:max-content;position:sticky;top:15px}.side button{display:block;width:100%;text-align:left;padding:13px 12px;border:0;border-radius:8px;background:transparent;color:var(--muted);cursor:pointer;font-size:14px}.side button.active,.side button:hover{background:#263b49;color:white}.side small{display:block;color:#718b9b;margin:12px 10px 5px;font-size:11px;letter-spacing:1px}
+.codehead{padding:15px 19px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;gap:10px}.codehead strong{font-size:16px}.pill{font-size:12px;color:var(--green);background:#203d35;padding:5px 10px;border-radius:30px}pre{margin:0;padding:22px;overflow:auto;max-height:68vh;background:#0d151c;color:#d9e8f2;font:13px/1.65 Consolas,'Courier New',monospace;white-space:pre}.pane{display:none}.pane.active{display:block}.copy{border:1px solid var(--line);background:#20323e;color:#dcebf5;border-radius:7px;padding:7px 12px;cursor:pointer}.explain{padding:17px 20px;border-top:1px solid var(--line);color:var(--muted);font-size:14px}.bottom{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-top:20px;color:var(--muted);font-size:13px}
+@media(max-width:760px){.grid{grid-template-columns:1fr}.side{position:static;display:grid;grid-template-columns:1fr 1fr}.side small{grid-column:1/-1}.side button{font-size:12px}.codehead{align-items:flex-start;flex-direction:column}pre{font-size:12px}}
+</style></head><body>
+<header><div class="brand">V2V <span>Mobility Lab</span> <small style="color:#8298a6;font-size:12px">/ SOURCE WALKTHROUGH</small></div><nav><a href="/">Live simulation</a><a href="/project">Project code</a></nav></header>
+<main><section class="intro"><div class="tag">MINI PROJECT · SOURCE PRESENTATION</div><h1>Cooperative V2V Lane Merge</h1><p>Source-code walkthrough: Flask backend, HTML dashboard, CSS interface and JavaScript simulation engine.</p></section>
+<div class="grid"><aside class="side"><small>PROJECT FILES</small>
+<button class="active" onclick="showFile(0)">01 &nbsp; app.py <span style="float:right">PY</span></button>
+<button onclick="showFile(1)">02 &nbsp; index.html <span style="float:right">HTML</span></button>
+<button onclick="showFile(2)">03 &nbsp; style.css <span style="float:right">CSS</span></button>
+<button onclick="showFile(3)">04 &nbsp; sim.js <span style="float:right">JS</span></button>
+<small>FLOW</small><p style="padding:0 10px;font-size:13px">Browser → Flask route → dashboard → simulation loop → telemetry & V2V log</p></aside>
+<section class="codebox">
+{% for name, code in snippets.items() %}<article class="pane {% if loop.index0 == 0 %}active{% endif %}" id="pane{{loop.index0}}"><div class="codehead"><strong>{{name}}</strong><button class="copy" onclick="copyCode('code{{loop.index0}}')">Copy code</button></div><pre><code id="code{{loop.index0}}">{{code}}</code></pre><div class="explain" id="explain{{loop.index0}}">{% if loop.index0 == 0 %}Backend: Flask creates the web app, maps routes, and serves the dashboard/source page.{% elif loop.index0 == 1 %}Frontend: HTML defines the road, vehicle cards, telemetry, controls and message-log sections.{% elif loop.index0 == 2 %}Styling: CSS controls lane markings, vehicle appearance, dashboard layout and responsive sizing.{% else %}Simulation engine: JavaScript updates vehicle positions and speeds, runs the lane-merge phases, and records simulated V2V events.{% endif %}</div></article>{% endfor %}
+</section></div><div class="bottom"><span>Educational simulation · V2V messages are simulated locally</span><span>Tip: select a file tab and explain its role.</span></div></main>
+<script>
+function showFile(n){document.querySelectorAll('.pane').forEach((p,i)=>p.classList.toggle('active',i===n));document.querySelectorAll('.side button').forEach((b,i)=>b.classList.toggle('active',i===n));}
+function copyCode(id){let t=document.getElementById(id).innerText;navigator.clipboard.writeText(t).then(()=>alert('Source copied to clipboard'));}
+</script></body></html>
